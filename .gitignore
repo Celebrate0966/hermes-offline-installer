@@ -1,0 +1,26 @@
+# The offline bundle produced by export.ps1 is ~4 GB of binaries.
+# It must NEVER be committed to this repo - regenerate it with export.ps1
+# on any machine that already has Hermes installed.
+HermesOffline/
+*.bundle
+tools/
+hermes-cache/
+npm-cache/
+prebuilt-mirror/
+desktop-inputs/
+desktop-packager/
+bootstrap-cache/
+repo/
+
+# Local build artifacts / backups from a live install
+*.bak-*
+*.junk-*
+.staging-*
+broker-*
+*.broken-*
+backups/
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+*.log
