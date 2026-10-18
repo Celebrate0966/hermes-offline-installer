@@ -130,7 +130,7 @@ if ($gitExe) {
 #    is fully self-contained (the README "how to export" step does this by hand)
 # ---------------------------------------------------------------------------
 if (-not $NoKit) {
-    $kitFiles = @('restore.ps1', 'watch-electron-cache.ps1', '1-restore.bat', '2-watch.bat', '3-export.bat')
+    $kitFiles = @('restore.ps1', 'watch-electron-cache.ps1', '1-restore.bat', '2-watch.bat', '3-export.bat', 'PROMPTS.md')
     foreach ($f in $kitFiles) {
         $src = Join-Path $PSScriptRoot $f
         if (Test-Path $src) {
