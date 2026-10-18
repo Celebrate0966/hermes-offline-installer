@@ -469,9 +469,9 @@ git init
 git add -A                 # .gitignore 会自动拦掉 4 GB 的二进制
 git commit -m "Hermes 离线安装工具包 v2"
 git branch -M main
-# 二选一（没配 SSH 就选 HTTPS）：
-git remote add origin git@github.com:<你的用户名>/hermes-offline-kit.git          # SSH
-# git remote add origin https://github.com/<你的用户名>/hermes-offline-kit.git   # HTTPS
+# 二选一（没配 SSH 就选 HTTPS）：本仓库地址 https://github.com/Celebrate0966/hermes-offline-installer
+git remote add origin git@github.com:Celebrate0966/hermes-offline-installer.git          # SSH
+# git remote add origin https://github.com/Celebrate0966/hermes-offline-installer.git   # HTTPS
 git push -u origin main
 ```
 
