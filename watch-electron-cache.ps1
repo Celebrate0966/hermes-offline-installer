@@ -1,4 +1,4 @@
-# Watches BOTH electron cache locations while Hermes-Setup.exe runs.
+﻿# Watches BOTH electron cache locations while Hermes-Setup.exe runs.
 #
 # Why this exists
 # ---------------
@@ -77,3 +77,4 @@ while ((Get-Date) -lt $deadline) {
 }
 
 "=== watcher end $(Get-Date -Format 'o') ===" | Out-File $log -Append -Encoding utf8
+

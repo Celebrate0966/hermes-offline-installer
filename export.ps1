@@ -1,4 +1,4 @@
-# Hermes offline export script - portable edition
+﻿# Hermes offline export script - portable edition
 #
 # Produces the offline bundle that restore.ps1 consumes, by copying the
 # install artifacts out of a machine that already has Hermes working.
@@ -130,13 +130,29 @@ if ($gitExe) {
 #    is fully self-contained (the README "how to export" step does this by hand)
 # ---------------------------------------------------------------------------
 if (-not $NoKit) {
-    $kitFiles = @('restore.ps1', 'watch-electron-cache.ps1', '1-restore.bat', '2-watch.bat', '3-export.bat', 'README.md')
+    $kitFiles = @('restore.ps1', 'watch-electron-cache.ps1', '1-restore.bat', '2-watch.bat', '3-export.bat')
     foreach ($f in $kitFiles) {
         $src = Join-Path $PSScriptRoot $f
         if (Test-Path $src) {
             Copy-Item $src (Join-Path $Output $f) -Force
             Say "kit file -> $f"
         }
+    }
+    # README.md is special. The GitHub repo's "百度网盘下载" section would be
+    # self-referential inside the offline package (you cannot link to the very
+    # package you are uploading). Replace it with a "this IS the offline package"
+    # note so the shipped README is never paradoxical.
+    $readmeSrc = Join-Path $PSScriptRoot 'README.md'
+    if (Test-Path $readmeSrc) {
+        $readme    = Get-Content $readmeSrc -Raw -Encoding utf8
+        $pkgNote   = "## 这是离线安装包本身`n`n> 你手里这个目录**就是** Hermes 离线安装包（约 4 GB 二进制 + 本工具包脚本都在里面）。`n> **不需要再下载任何东西**，直接看下方「30 秒快速开始」开装即可。`n>`n> 想获取**更新的离线包**或查看更新说明，去 GitHub 仓库`n> `https://github.com/Celebrate0966/hermes-offline-installer`，`n> 仓库 README 顶部有百度网盘的分享链接。`n`n---`n"
+        $newReadme = $readme -replace '(?s)## 📦 离线包下载（百度网盘）.*?\r?\n---\r?\n', $pkgNote
+        # Secondary wording fixes: inside the package there is no "download box above",
+        # so point those references at the GitHub repo instead.
+        $newReadme = $newReadme -replace '（见上方下载框）', '（见 GitHub 仓库顶部）'
+        $newReadme = $newReadme -replace '百度网盘（见上方链接）', '百度网盘（见 GitHub 仓库顶部）'
+        Set-Content -Path (Join-Path $Output 'README.md') -Value $newReadme -Encoding utf8
+        Say "kit file -> README.md (package edition, Baidu self-link removed)"
     }
 }
 
@@ -161,3 +177,4 @@ Write-Host "  1-restore.bat  ->  2-watch.bat  ->  double-click Hermes-Setup.exe"
 Write-Host ""
 Write-Host "NOTE: do NOT push this 4 GB folder to GitHub. The repo holds only the" -ForegroundColor Yellow
 Write-Host "scripts + README; regenerate the bundle on demand with export.ps1." -ForegroundColor Yellow
+

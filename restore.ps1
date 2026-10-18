@@ -1,4 +1,4 @@
-# Hermes offline restore script - portable edition (v2)
+﻿# Hermes offline restore script - portable edition (v2)
 #
 # Lays down a previously exported offline bundle so the official
 # Hermes-Setup.exe can run all 9 stages without reaching the network.
@@ -308,3 +308,4 @@ Write-Host ""
 Write-Host "The installer hashes the electron URL at runtime, and on a fresh machine" -ForegroundColor Yellow
 Write-Host "that hash may not match the one in this bundle. Keep the watcher running" -ForegroundColor Yellow
 Write-Host "during the install - it fills any new hash directory within 2 seconds." -ForegroundColor Yellow
+
